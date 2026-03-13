@@ -1,0 +1,28 @@
+.scroll-stack-scroller {
+  width: 100%;
+  position: relative;
+}
+
+.scroll-stack-inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  align-items: center;
+}
+
+.scroll-stack-card {
+  width: 100%;
+  position: relative;
+  will-change: transform, filter;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.scroll-stack-end {
+  height: 50vh;
+  width: 100%;
+  pointer-events: none;
+}
