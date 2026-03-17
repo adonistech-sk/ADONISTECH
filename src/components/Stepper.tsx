@@ -1,6 +1,7 @@
 import React, { useState, ReactNode, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Step({ children }: { children: ReactNode }) {
   return <div className="w-full flex-1 flex flex-col">{children}</div>;
@@ -26,6 +27,7 @@ export default function Stepper({
   const steps = React.Children.toArray(children);
   const totalSteps = steps.length;
   
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -85,7 +87,7 @@ export default function Stepper({
         })}
       </div>
 
-      <div className="relative min-h-[350px] bg-white border border-black/5 rounded-[32px] p-8 md:p-12 shadow-2xl shadow-black/5 overflow-hidden mt-8">
+      <div className="relative min-h-[180px] md:min-h-[350px] bg-white border border-black/5 rounded-[32px] p-6 md:p-12 shadow-2xl shadow-black/5 overflow-hidden mt-8">
         <AnimatePresence mode="wait">
           {!isCompleted ? (
             <motion.div
@@ -110,11 +112,8 @@ export default function Stepper({
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight">Ready to Build Your Website?</h2>
               <p className="text-neutral-500 text-lg">You’ve completed the process. Let’s take the next step and bring your project to life.</p>
-              <button 
-                onClick={() => {
-                  setIsCompleted(false);
-                  setCurrentStep(1);
-                }}
+              <button
+                onClick={() => navigate('/contact')}
                 className="mt-8 px-8 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 rounded-2xl font-bold transition-all hover:scale-105 active:scale-95"
                 >
                   Get a Free Consultation

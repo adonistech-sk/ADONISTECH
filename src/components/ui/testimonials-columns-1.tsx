@@ -2,6 +2,8 @@
 import React from "react";
 import { motion } from "motion/react";
 
+const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 export type Testimonial = {
     text: string;
     image: string;
@@ -43,6 +45,7 @@ export const TestimonialsColumn = (props: {
                                             height={40}
                                             src={image}
                                             alt={name}
+                                            loading={_isMobile ? "lazy" : undefined}
                                             className="h-10 w-10 rounded-full border border-white/50"
                                         />
                                         <div className="flex flex-col">

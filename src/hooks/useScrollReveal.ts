@@ -1,5 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 
+const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 interface ScrollRevealOptions {
     threshold?: number;
     rootMargin?: string;
@@ -54,10 +56,20 @@ export function useScrollReveal(options: ScrollRevealOptions = {}, deps: any[] =
     }, [threshold, rootMargin, once]);
 
     useEffect(() => {
-        // Delay to ensure DOM is fully rendered AND App.tsx's window.scrollTo(0,0) has fired,
-        // preventing a race condition where top-of-page elements are missed on fresh navigation.
-        const timeout = setTimeout(observe, 200);
-        return () => clearTimeout(timeout);
+        if (_isMobile) {
+            // Mobile: double-RAF fires after layout+paint (~32ms instead of 200ms)
+            let cancelled = false;
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    if (!cancelled) observe();
+                });
+            });
+            return () => { cancelled = true; };
+        } else {
+            // Desktop: original 200ms delay
+            const timeout = setTimeout(observe, 200);
+            return () => clearTimeout(timeout);
+        }
     }, [observe, ...deps]);
 
     return containerRef;

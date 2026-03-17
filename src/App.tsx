@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { NavBarDemo } from './components/NavBarDemo';
+import { Header } from './components/ui/header-2';
 import { Home } from './pages/Home';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
@@ -9,11 +10,19 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
 export default function App() {
   const [heroLoaded, setHeroLoaded] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
-  // Show navbar immediately on non-home pages, or when the hero has loaded on the home page.
   const showNavBar = !isHomePage || heroLoaded;
+
+  React.useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,20 +30,29 @@ export default function App() {
 
   return (
     <div className="w-full min-h-screen relative font-sans selection:bg-pink-500/30">
-      <div
-        className="transition-all duration-1000 ease-out fixed top-0 left-0 w-full z-[100] pointer-events-none"
-        style={{
-          opacity: showNavBar ? 1 : 0,
-          transform: showNavBar ? 'translateY(0)' : 'translateY(-24px)',
-          transitionDelay: showNavBar && isHomePage ? '3.5s' : '0s'
-        }}
-      >
-        <div className="pointer-events-auto">
-          <NavBarDemo />
-        </div>
-      </div>
 
-      {/* Global Seamless Theme Background - Precise Radial Gradient */}
+      {/* Desktop navbar — fixed, fades in after hero loads */}
+      {!isMobile && (
+        <div
+          className="transition-all duration-1000 ease-out fixed top-0 left-0 w-full z-[100] pointer-events-none"
+          style={{
+            opacity: showNavBar ? 1 : 0,
+            transform: showNavBar ? 'translateY(0)' : 'translateY(-24px)',
+            transitionDelay: showNavBar && isHomePage ? '3.5s' : '0s'
+          }}
+        >
+          <div className="pointer-events-auto">
+            <NavBarDemo />
+          </div>
+        </div>
+      )}
+
+      {/* Mobile navbar — sticky, always visible */}
+      {isMobile && (
+        <Header />
+      )}
+
+      {/* Global Seamless Theme Background */}
       <div className="fixed inset-0 w-full h-full -z-10 bg-white pointer-events-none overflow-hidden flex items-center justify-center">
         <div
           className="w-[120vw] h-[120vw] max-w-[1200px] max-h-[1200px] absolute"

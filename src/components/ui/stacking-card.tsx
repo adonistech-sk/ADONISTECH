@@ -4,6 +4,8 @@ import { useTransform, motion, useScroll, MotionValue } from 'motion/react';
 import { useRef, forwardRef, Key } from 'react';
 import { ArrowRight } from 'lucide-react';
 
+const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 interface ProjectData {
   title: string;
   description: string;
@@ -52,26 +54,26 @@ export const Card = ({
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`flex flex-col relative -top-[20%] h-[500px] w-[90%] md:w-[80%] max-w-5xl rounded-[32px] p-8 md:p-12 origin-top bg-white/60 backdrop-blur-2xl border border-white/50 shadow-[0_30px_60px_rgba(0,0,0,0.1)]`}
+        className={`flex flex-col relative -top-[20%] h-[min(520px,85vh)] md:h-[500px] w-[90%] md:w-[80%] max-w-5xl rounded-[32px] p-5 md:p-12 origin-top bg-white/60 backdrop-blur-2xl border border-white/50 shadow-[0_30px_60px_rgba(0,0,0,0.1)]`}
       >
-        <div className={`flex flex-col md:flex-row h-full gap-8 md:gap-12 items-center`}>
+        <div className={`flex flex-col md:flex-row h-full gap-3 md:gap-12 items-center`}>
           {/* Text Section */}
-          <div className={`w-full md:w-[45%] flex flex-col justify-center`}>
-            <div className="flex items-center gap-3 mb-4">
+          <div className={`w-full md:w-[45%] flex flex-col justify-center shrink-0`}>
+            <div className="flex items-center gap-3 mb-2 md:mb-4">
                <span style={{ backgroundColor: color }} className="w-3 h-3 rounded-full"></span>
                <span className="text-sm font-semibold tracking-widest uppercase text-neutral-500">Project 0{i + 1}</span>
             </div>
-            <h2 className='text-neutral-900 font-bold text-4xl md:text-5xl tracking-tight leading-tight mb-6'>
+            <h2 className='text-neutral-900 font-bold text-2xl md:text-5xl tracking-tight leading-tight mb-2 md:mb-6'>
               {title}
             </h2>
-            <p className='text-neutral-600 text-lg md:text-xl leading-relaxed mb-8'>
+            <p className='text-neutral-600 text-sm md:text-xl leading-relaxed mb-3 md:mb-8'>
               {description}
             </p>
             <a
               href={'#'}
               target='_blank'
               style={{ color }}
-              className='inline-flex items-center gap-2 font-bold text-lg hover:opacity-70 transition-opacity w-fit'
+              className='inline-flex items-center gap-2 font-bold text-sm md:text-lg hover:opacity-70 transition-opacity w-fit'
             >
               <span className='border-b-2 pb-0.5 border-current'>Book a FREE Consultation</span>
               <ArrowRight size={20} />
@@ -80,13 +82,13 @@ export const Card = ({
 
           {/* Image Section */}
           <div
-            className={`relative w-full md:w-[55%] h-[200px] md:h-full rounded-[24px] overflow-hidden shadow-2xl border border-white/20`}
+            className={`relative w-full md:w-[55%] h-full min-h-[160px] md:h-full rounded-[24px] overflow-hidden shadow-2xl border border-white/20`}
           >
             <motion.div
               className={`w-full h-full`}
               style={{ scale: imageScale }}
             >
-              <img src={url} alt={title} className='absolute inset-0 w-full h-full object-cover' />
+              <img src={url} alt={title} loading={_isMobile ? "lazy" : undefined} className='absolute inset-0 w-full h-full object-cover' />
             </motion.div>
           </div>
         </div>

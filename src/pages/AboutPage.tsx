@@ -41,46 +41,46 @@ export function AboutPage() {
                             nextButtonText="Next"
                         >
                             <Step>
-                                <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-4">Step 1</p>
-                                    <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-6">Analysis &amp; Understanding</h2>
-                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed">
+                                <div className="flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[200px] text-center">
+                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Step 1</p>
+                                    <h2 className="text-2xl md:text-5xl font-bold text-neutral-900 mb-0 md:mb-6">Analysis &amp; Understanding</h2>
+                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed hidden md:block">
                                         At the meeting (in person or online), we will go through your expectations, goals, and ideas for the new website. We will advise you on the scope, technology, and structure as well.
                                     </p>
                                 </div>
                             </Step>
                             <Step>
-                                <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-4">Step 2</p>
-                                    <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-6">Concept &amp; Planning</h2>
-                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed">
+                                <div className="flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[200px] text-center">
+                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Step 2</p>
+                                    <h2 className="text-2xl md:text-5xl font-bold text-neutral-900 mb-0 md:mb-6">Concept &amp; Planning</h2>
+                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed hidden md:block">
                                         With a clear understanding of your goals, we define the website strategy, structure, and user journey. This phase ensures every page and feature is planned to deliver a smooth experience and support your business objectives.
                                     </p>
                                 </div>
                             </Step>
                             <Step>
-                                <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-4">Step 3</p>
-                                    <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-6">Design &amp; Content</h2>
-                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed">
+                                <div className="flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[200px] text-center">
+                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Step 3</p>
+                                    <h2 className="text-2xl md:text-5xl font-bold text-neutral-900 mb-0 md:mb-6">Design &amp; Content</h2>
+                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed hidden md:block">
                                         We transform the strategy into a visually engaging design that reflects your brand. Layouts, typography, colors, and content are carefully crafted to create a modern, intuitive, and user-friendly experience.
                                     </p>
                                 </div>
                             </Step>
                             <Step>
-                                <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-4">Step 4</p>
-                                    <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-6">Development &amp; Implementation</h2>
-                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed">
+                                <div className="flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[200px] text-center">
+                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Step 4</p>
+                                    <h2 className="text-2xl md:text-5xl font-bold text-neutral-900 mb-0 md:mb-6">Development &amp; Implementation</h2>
+                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed hidden md:block">
                                         Our development team turns the approved designs into a fully functional website using modern technologies. The site is built to be fast, responsive, secure, and optimized for all devices and browsers.
                                     </p>
                                 </div>
                             </Step>
                             <Step>
-                                <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-4">Step 5</p>
-                                    <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 mb-6">Launch &amp; Optimization</h2>
-                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed">
+                                <div className="flex flex-col items-center justify-center h-full min-h-[120px] md:min-h-[200px] text-center">
+                                    <p className="text-[#3ca2fa] font-bold tracking-widest uppercase mb-2 md:mb-4 text-sm md:text-base">Step 5</p>
+                                    <h2 className="text-2xl md:text-5xl font-bold text-neutral-900 mb-0 md:mb-6">Launch &amp; Optimization</h2>
+                                    <p className="text-neutral-600 text-lg max-w-2xl leading-relaxed hidden md:block">
                                         After testing everything thoroughly, we launch your website and make it live. We also optimize performance, improve SEO readiness, and ensure everything runs smoothly for your visitors.
                                     </p>
                                 </div>

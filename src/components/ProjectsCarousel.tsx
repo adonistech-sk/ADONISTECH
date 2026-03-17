@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../lib/utils";
 
+const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 export const projects = [
     {
         id: 1,
@@ -51,9 +53,24 @@ export function ProjectsCarousel() {
     const autoRaf         = useRef<number | null>(null);
     const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    const isVisibleRef = useRef(true); // mobile perf: skip RAF when off-screen
+
     const [isHovering, setIsHovering]   = useState(false);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [isMouseDown, setIsMouseDown] = useState(false); // cursor style only
+
+    /* ── mobile: track visibility to skip RAF work when off-screen ── */
+    useEffect(() => {
+        if (!_isMobile) return;
+        const el = carouselRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+            { rootMargin: '200px' }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     /* ── helpers ─────────────────────────────────────────────── */
     const stopMomentum = () => {
@@ -120,7 +137,7 @@ export function ProjectsCarousel() {
     /* ── auto-scroll loop ─────────────────────────────────────── */
     useEffect(() => {
         const autoScroll = () => {
-            if (carouselRef.current && isAutoPlaying && !isHovering && !isDragging.current) {
+            if (carouselRef.current && isAutoPlaying && !isHovering && !isDragging.current && isVisibleRef.current) {
                 const c = carouselRef.current;
                 if (c.scrollLeft >= c.scrollWidth / 2) c.scrollLeft -= c.scrollWidth / 2;
                 c.scrollLeft += 0.8;                       // slightly faster than before
@@ -173,10 +190,11 @@ export function ProjectsCarousel() {
                                        hover:border-[#3ca2fa]/30"
                         >
                             {/* Image Section */}
-                            <div className="relative w-full h-[240px] md:h-[320px] overflow-hidden shrink-0 border-b border-white/20 bg-white/10">
+                            <div className="relative w-full h-[200px] md:h-[320px] overflow-hidden shrink-0 border-b border-white/20 bg-white/10">
                                 <img
                                     src={project.image}
                                     alt={project.title}
+                                    loading={_isMobile ? "lazy" : undefined}
                                     className="w-full h-auto drop-shadow-2xl opacity-100
                                                transition-transform duration-500 ease-out
                                                group-hover:scale-[1.06]"
@@ -193,14 +211,11 @@ export function ProjectsCarousel() {
                             </div>
 
                             {/* Text Section */}
-                            <div className="p-8 flex flex-col gap-4">
+                            <div className="px-5 py-4 md:px-8 md:py-5 flex flex-col">
                                 <div className="flex justify-between items-baseline">
                                     <h3 className="text-neutral-900 font-bold text-3xl md:text-5xl tracking-tight transition-colors duration-200 group-hover:text-[#3ca2fa]">{project.title}</h3>
                                     <span className="text-[#3ca2fa]/50 text-xs md:text-sm font-semibold tracking-widest uppercase ml-4 whitespace-nowrap group-hover:text-[#3ca2fa] transition-colors duration-200">{project.category}</span>
                                 </div>
-                                <p className="text-neutral-600 text-base md:text-xl leading-relaxed max-w-md">
-                                    {project.description}
-                                </p>
                             </div>
                         </a>
                     ))}

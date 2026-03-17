@@ -4,6 +4,8 @@ import React, { createContext, useContext, useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import { cn } from "../../lib/utils";
 
+const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 type TextOpacityEnum = "none" | "soft" | "medium";
 type ViewTypeEnum = "word" | "letter";
 
@@ -92,7 +94,7 @@ const Word = ({ children, progress, range }: WordType) => {
     return (
         <span className="relative me-2 mt-2">
             <span style={{ position: "absolute", opacity: 0.1 }}>{children}</span>
-            <motion.span style={{ transition: "all .5s", opacity: opacity }}>
+            <motion.span style={_isMobile ? { opacity } : { transition: "all .5s", opacity: opacity }}>
                 {children}
             </motion.span>
         </span>
@@ -136,10 +138,7 @@ const Char = ({ children, progress, range }: CharType) => {
                 {children}
             </span>
             <motion.span
-                style={{
-                    transition: "all .5s",
-                    opacity: opacity,
-                }}
+                style={_isMobile ? { opacity } : { transition: "all .5s", opacity: opacity }}
             >
                 {children}
             </motion.span>

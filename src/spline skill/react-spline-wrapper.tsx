@@ -52,7 +52,9 @@ export default function SplineBackground({
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    setCanLoad(shouldLoadSpline(mobileBreakpoint));
+    const canLoadNow = shouldLoadSpline(mobileBreakpoint);
+    setCanLoad(canLoadNow);
+    if (!canLoadNow && onLoadProp) onLoadProp();
   }, [mobileBreakpoint]);
 
   useEffect(() => {
@@ -146,9 +148,9 @@ export default function SplineBackground({
           className="absolute inset-0 pointer-events-none transition-all duration-1000 ease-out"
           style={{
             zIndex: 1,
-            opacity: splineLoaded ? 1 : 0,
-            transform: splineLoaded ? 'translateY(0)' : 'translateY(24px)',
-            transitionDelay: splineLoaded ? '3.5s' : '0s'
+            opacity: (!canLoad || splineLoaded) ? 1 : 0,
+            transform: (!canLoad || splineLoaded) ? 'translateY(0)' : 'translateY(24px)',
+            transitionDelay: (splineLoaded && canLoad) ? '3.5s' : '0s'
           }}
         >
           {children}
